@@ -2,7 +2,7 @@ import requests
 from config import HH_URL
 import psycopg2
 from typing import Any
-#params = config()
+
 
 def get_vacancies(url, params):
     """
