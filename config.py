@@ -1,8 +1,5 @@
-import os
 from configparser import ConfigParser
 
-ROOT_DIR = os.path.dirname(__file__)
-OPERATIONS_PATH = os.path.join(ROOT_DIR, "hh_vac.json")
 HH_URL = "https://api.hh.ru/vacancies"
 params ={
     'employer_id': ['9498120','78638','2748','3529','5557093','1035394','2510287','4164896','224839','10419023'],
