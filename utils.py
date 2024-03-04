@@ -64,7 +64,7 @@ def save_data_to_database(db_name: str, params: dict, req) -> None:
             vacancy_name = vac['name']
             salary_from = vac['salary'].get('from') if vac['salary'] else 0
             salary_to = vac['salary'].get('to') if vac['salary'] else 0
-            vacancy_url = vac['url']
+            vacancy_url = vac['alternate_url']
 
             if company_id not in companies_list:
                 cur.execute(

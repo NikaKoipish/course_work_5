@@ -16,15 +16,26 @@ class DBManager:
                     GROUP BY companies.title""")
             companies_and_vacancies = cur.fetchall()
             for row in companies_and_vacancies:
-                print(f'Компания: {row[0]}, '
+                print(f'Компания: {row[0]}\n'
                       f'Количество вакансий: {row[1]}')
         self.conn.close()
 
-    def get_all_vacancies():
+    def get_all_vacancies(self):
         '''получает список всех вакансий
         с указанием названия компании, названия вакансии и зарплаты
         и ссылки на вакансию'''
-        pass
+        with self.conn.cursor() as cur:
+            cur.execute("""SELECT companies.title as company_name, vacancies.title as vacancy_name, vacancies.salary_from as salary, vacancies.vacancy_url as url
+                        FROM companies
+                        JOIN vacancies
+                        ON companies.company_db_id=vacancies.company_db_id""")
+            companies_and_vacancies = cur.fetchall()
+            for row in companies_and_vacancies:
+                print(f'Компания: {row[0]}\n'
+                      f'Вакансия: {row[1]}\n'
+                      f'Зарплата от: {row[2]}\n'
+                      f'Ссылка на вакансию: {row[3]}\n')
+        self.conn.close()
 
     def get_avg_salary():
         '''получает среднюю зарплату по вакансиям'''
