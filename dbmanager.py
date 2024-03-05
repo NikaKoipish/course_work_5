@@ -34,12 +34,22 @@ class DBManager:
                 print(f'Компания: {row[0]}\n'
                       f'Вакансия: {row[1]}\n'
                       f'Зарплата от: {row[2]}\n'
-                      f'Ссылка на вакансию: {row[3]}\n')
+                      f'Ссылка на вакансию: {row[3]}\np')
         self.conn.close()
 
-    def get_avg_salary():
+    def get_avg_salary(self):
         '''получает среднюю зарплату по вакансиям'''
-        pass
+        with self.conn.cursor() as cur:
+            cur.execute("""SELECT DISTINCT vacancies.title as vacancy_name, AVG(vacancies.salary_from) as average_salary
+                        FROM vacancies  
+                        WHERE vacancies.salary_from IS NOT NULL AND vacancies.salary_from<>0
+                        GROUP BY vacancies.title
+                        ORDER BY average_salary""")
+            companies_and_vacancies = cur.fetchall()
+            for row in companies_and_vacancies:
+                print(f'Вакансия: {row[0]}\n'
+                      f'Средняя зарплата: {row[1]}\n')
+        self.conn.close()
 
     def get_vacancies_with_higher_salary():
         '''получает список всех вакансий, у которых зарплата
