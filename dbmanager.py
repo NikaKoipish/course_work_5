@@ -51,10 +51,19 @@ class DBManager:
                       f'Средняя зарплата: {row[1]}\n')
         self.conn.close()
 
-    def get_vacancies_with_higher_salary():
+    def get_vacancies_with_higher_salary(self):
         '''получает список всех вакансий, у которых зарплата
         выше средней по всем вакансиям'''
-        pass
+        with self.conn.cursor() as cur:
+            cur.execute("""SELECT vacancies.title as vacancy_name, vacancies.salary_from as salary
+                        FROM vacancies  
+                        WHERE vacancies.salary_from > (SELECT AVG(vacancies.salary_from) FROM vacancies)
+                        ORDER BY salary""")
+            companies_and_vacancies = cur.fetchall()
+            for row in companies_and_vacancies:
+                print(f'Вакансия: {row[0]}\n'
+                      f'Зарплата: {row[1]}\n')
+        self.conn.close()
 
     def get_vacancies_with_keyword():
         '''получает список всех вакансий,
