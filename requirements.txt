@@ -1,2 +1,10 @@
-pip        23.1.2
-setuptools 65.5.0
+pip~=23.3.1
+utils~=1.0.1
+Jinja2~=3.1.2
+setuptools~=65.5.0
+packaging~=23.2
+pyparsing~=3.1.1
+zipp~=3.17.0
+build~=1.0.3
+requests~=2.31.0
+psycopg2~=2.9.9
