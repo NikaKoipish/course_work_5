@@ -18,7 +18,7 @@ class DBManager:
             for row in companies_and_vacancies:
                 print(f'Компания: {row[0]}\n'
                       f'Количество вакансий: {row[1]}')
-        self.conn.close()
+
 
     def get_all_vacancies(self):
         '''получает список всех вакансий
@@ -35,7 +35,7 @@ class DBManager:
                       f'Вакансия: {row[1]}\n'
                       f'Зарплата от: {row[2]}\n'
                       f'Ссылка на вакансию: {row[3]}\np')
-        self.conn.close()
+
 
     def get_avg_salary(self):
         '''получает среднюю зарплату по вакансиям'''
@@ -49,7 +49,7 @@ class DBManager:
             for row in companies_and_vacancies:
                 print(f'Вакансия: {row[0]}\n'
                       f'Средняя зарплата: {row[1]}\n')
-        self.conn.close()
+
 
     def get_vacancies_with_higher_salary(self):
         '''получает список всех вакансий, у которых зарплата
@@ -63,11 +63,19 @@ class DBManager:
             for row in companies_and_vacancies:
                 print(f'Вакансия: {row[0]}\n'
                       f'Зарплата: {row[1]}\n')
-        self.conn.close()
 
-    def get_vacancies_with_keyword():
+
+    def get_vacancies_with_keyword(self, keyword):
         '''получает список всех вакансий,
         в названии которых содержатся
         переданные в метод слова, например python'''
-        pass
+        with self.conn.cursor() as cur:
+            cur.execute(f"SELECT vacancies.title as vacancy_name, vacancies.salary_from as salary "
+                        f"FROM vacancies "
+                        f"WHERE vacancies.title LIKE '%{keyword}%'")
+            companies_and_vacancies = cur.fetchall()
+            for row in companies_and_vacancies:
+                    print(f'Вакансия: {row[0]}\n'
+                          f'Зарплата: {row[1]}\n')
+
 
