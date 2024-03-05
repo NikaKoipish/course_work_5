@@ -9,7 +9,8 @@ def main():
 
     info = DBManager('hh_info14', par)
     #info.get_companies_and_vacancies_count()
-    info.get_all_vacancies()
+    #info.get_all_vacancies()
+    info.get_avg_salary()
 
 
 
