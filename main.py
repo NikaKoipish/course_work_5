@@ -25,7 +25,7 @@ def main():
     elif answer == 4:
         info.get_vacancies_with_higher_salary()
     elif answer == 5:
-        keyword = input("Введите ключевое слово для поиска: ")
+        keyword = input("Введите ключевое слово для поиска: ").lower()
         info.get_vacancies_with_keyword(keyword)
     elif answer == 6:
         keyword = input("Введите ключевое слово для поиска: ")
