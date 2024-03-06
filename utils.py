@@ -82,7 +82,7 @@ def save_data_to_database(db_name: str, params: dict, req) -> None:
                 INSERT INTO vacancies (company_db_id, vacancy_id, title, salary_from, salary_to, vacancy_url)
                 VALUES (%s, %s, %s, %s, %s, %s)
                 """,
-                (company_db_id, vacancy_id, vacancy_name, salary_from, salary_to,
+                (company_db_id, vacancy_id, vacancy_name.lower(), salary_from, salary_to,
                  vacancy_url)
             )
 
