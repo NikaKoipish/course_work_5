@@ -28,7 +28,7 @@ def main():
         keyword = input("Введите ключевое слово для поиска: ").lower()
         info.get_vacancies_with_keyword(keyword)
     elif answer == 6:
-        keyword = input("Введите ключевое слово для поиска: ")
+        keyword = input("Введите ключевое слово для поиска: ").lower()
         info.get_companies_and_vacancies_count()
         info.get_all_vacancies()
         info.get_avg_salary()
