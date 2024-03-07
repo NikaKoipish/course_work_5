@@ -1,15 +1,18 @@
-from utils import get_vacancies, create_database,save_data_to_database
-from config import HH_URL, params, config
+from utils import get_vacancies, create_database, save_data_to_database
+from config import HH_URL, params, config, db_name
 from dbmanager import DBManager
+
+
 def main():
     req = get_vacancies(HH_URL, params)
     par = config()
-    create_database('hh_info2', par)
-    save_data_to_database('hh_info2', par, req)
+    create_database(db_name, par)
+    save_data_to_database(db_name, par, req)
 
     info = DBManager('hh_info2', par)
     print("1 - получить список всех компаний и количество вакансий у каждой компании")
-    print("2 - получить список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию")
+    print("2 - получить список всех вакансий с указанием названия компании, "
+          "названия вакансии и зарплаты и ссылки на вакансию")
     print("3 - получить среднюю зарплату по вакансиям")
     print("4 - получить список всех вакансий, у которых зарплата выше средней по всем вакансиям")
     print("5 - получить список всех вакансий, в названии которых содержатся переданные в метод слова")
@@ -37,7 +40,6 @@ def main():
     elif answer == 0:
         print("Всего доброго!")
     info.conn.close()
-
 
 
 if __name__ == '__main__':

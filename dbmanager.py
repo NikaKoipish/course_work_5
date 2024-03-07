@@ -1,5 +1,6 @@
 import psycopg2
 
+
 class DBManager:
     def __init__(self, db_name, params):
         self.db_name = db_name
@@ -7,7 +8,7 @@ class DBManager:
         self.conn = psycopg2.connect(dbname=self.db_name, **self.params)
 
     def get_companies_and_vacancies_count(self):
-        '''получает список всех компаний и количество вакансий у каждой компании'''
+        """Получает список всех компаний и количество вакансий у каждой компании"""
         with self.conn.cursor() as cur:
             cur.execute("""SELECT companies.title as company_name, count(vacancies.title) as quantity_of_vacancies
                     FROM companies
@@ -19,13 +20,13 @@ class DBManager:
                 print(f'Компания: {row[0]}\n'
                       f'Количество вакансий: {row[1]}')
 
-
     def get_all_vacancies(self):
-        '''получает список всех вакансий
+        """Получает список всех вакансий,
         с указанием названия компании, названия вакансии и зарплаты
-        и ссылки на вакансию'''
+        и ссылки на вакансию"""
         with self.conn.cursor() as cur:
-            cur.execute("""SELECT companies.title as company_name, vacancies.title as vacancy_name, vacancies.salary_from as salary, vacancies.vacancy_url as url
+            cur.execute("""SELECT companies.title as company_name, vacancies.title as vacancy_name, 
+                        vacancies.salary_from as salary, vacancies.vacancy_url as url
                         FROM companies
                         JOIN vacancies
                         ON companies.company_db_id=vacancies.company_db_id""")
@@ -36,9 +37,8 @@ class DBManager:
                       f'Зарплата от: {row[2]}\n'
                       f'Ссылка на вакансию: {row[3]}\np')
 
-
     def get_avg_salary(self):
-        '''получает среднюю зарплату по вакансиям'''
+        """Получает среднюю зарплату по вакансиям"""
         with self.conn.cursor() as cur:
             cur.execute("""SELECT DISTINCT vacancies.title as vacancy_name, AVG(vacancies.salary_from) as average_salary
                         FROM vacancies  
@@ -50,10 +50,9 @@ class DBManager:
                 print(f'Вакансия: {row[0]}\n'
                       f'Средняя зарплата: {row[1]}\n')
 
-
     def get_vacancies_with_higher_salary(self):
-        '''получает список всех вакансий, у которых зарплата
-        выше средней по всем вакансиям'''
+        """Получает список всех вакансий, у которых зарплата
+        выше средней по всем вакансиям"""
         with self.conn.cursor() as cur:
             cur.execute("""SELECT vacancies.title as vacancy_name, vacancies.salary_from as salary
                         FROM vacancies  
@@ -64,18 +63,15 @@ class DBManager:
                 print(f'Вакансия: {row[0]}\n'
                       f'Зарплата: {row[1]}\n')
 
-
     def get_vacancies_with_keyword(self, keyword):
-        '''получает список всех вакансий,
+        """Получает список всех вакансий,
         в названии которых содержатся
-        переданные в метод слова, например python'''
+        переданные в метод слова, например python"""
         with self.conn.cursor() as cur:
             cur.execute(f"SELECT vacancies.title as vacancy_name, vacancies.salary_from as salary "
                         f"FROM vacancies "
                         f"WHERE vacancies.title LIKE '%{keyword}%'")
             companies_and_vacancies = cur.fetchall()
             for row in companies_and_vacancies:
-                    print(f'Вакансия: {row[0]}\n'
-                          f'Зарплата: {row[1]}\n')
-
-
+                print(f'Вакансия: {row[0]}\n'
+                      f'Зарплата: {row[1]}\n')

@@ -1,7 +1,5 @@
 import requests
-from config import HH_URL
 import psycopg2
-from typing import Any
 
 
 def get_vacancies(url, params):
@@ -52,7 +50,7 @@ def create_database(db_name, param) -> None:
 
 
 def save_data_to_database(db_name: str, params: dict, req) -> None:
-    '''Сохранение данных в БД'''
+    """Сохранение данных в БД"""
     conn = psycopg2.connect(dbname=db_name, **params)
 
     with conn.cursor() as cur:
