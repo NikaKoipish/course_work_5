@@ -1,11 +1,17 @@
 from configparser import ConfigParser
 
 HH_URL = "https://api.hh.ru/vacancies"
-params ={
-    'employer_id': ['9498120','78638','2748','3529','5557093','1035394','2510287','4164896','224839','10419023'],
+db_name = 'hh_info'
+params = {
+    'employer_id': ['9498120', '78638',
+                    '2748', '3529',
+                    '5557093', '1035394',
+                    '2510287', '4164896',
+                    '224839', '10419023'],
     'page': 0,
     'per_page': 100
 }
+
 
 def config(filename="database.ini", section="postgresql"):
     # create a parser
